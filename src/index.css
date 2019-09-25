@@ -1,15 +1,65 @@
+html,
+body,
+#root {
+  min-height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+h1 {
+  padding-left: 0.7em;
+}
+
+.float-right {
+  float: right;
+}
+#page-header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 80px;
+  overflow: auto;
+}
+#table-scroll {
+  position: absolute;
+  top: 80px;
+  bottom: 50px;
+  left: 0px;
+  right: 0px;
+  overflow: auto;
+}
+#page-footer {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 40px;
+  overflow: auto;
+  text-align: center;
+}
+
 table {
   border-collapse: collapse;
+  width: 100%;
+  height: 100%;
 }
-td,
 th {
-  border: 1px solid #eee;
-  padding: 10px;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+  background-color: #ccc;
 }
-.double,
-.int {
-  text-align: right;
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 0.7em;
 }
-tfoot {
+
+td.double,
+td.int,
+th.double,
+th.int {
   text-align: right;
 }

@@ -1,29 +1,41 @@
 import React from "react";
 import FileViewerPagination from "./file-viewer-pagination";
 export default class FileViewer extends React.Component {
-  state = { offset: 0, limit: 100 };
+  state = { page: 0, pageSize: 100 };
   render() {
-    const { file, metadata } = this.props;
+    const { file, metadata, onClose, rows } = this.props;
+    const { page, pageSize } = this.state;
     document.title = file.name;
+    const pageCount = Math.ceil(rows.length / pageSize);
     return (
-      <div id="table-wrapper">
+      <React.Fragment>
+        <div id="page-header">
+          <div className="float-right">
+            <button onClick={onClose}>X</button>
+          </div>
+          <h1>
+            {file.name}, {this.humanSize(file.size)},{" last modified on "}
+            {file.lastModifiedDate.toString()}
+          </h1>
+        </div>
         <div id="table-scroll">
-          <h1>{file.name}</h1>
           <table>
             <thead>
               <tr>{metadata.fields.map(this.renderHeader)}</tr>
             </thead>
             <tbody>{this.renderRows()}</tbody>
-            <tfoot>
-              <tr>
-                <td colSpan="1000">
-                  <FileViewerPagination />
-                </td>
-              </tr>
-            </tfoot>
           </table>
         </div>
-      </div>
+        <div id="page-footer">
+          <FileViewerPagination
+            page={page}
+            pageCount={pageCount}
+            pageSize={pageSize}
+            gotoPage={this.gotoPage}
+            changePageSize={this.changePageSize}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -38,8 +50,10 @@ export default class FileViewer extends React.Component {
   renderRows() {
     const { rows } = this.props;
     const drows = [];
-    const { offset, limit } = this.state;
-    for (let i = 0; i < limit; i++) drows.push(rows[offset + i]);
+    const { page, pageSize } = this.state;
+    const start = page * pageSize;
+    const end = Math.min(start + pageSize, rows.length);
+    for (let i = start; i < end; i++) drows.push(rows[i]);
     return drows.map(this.renderRow);
   }
 
@@ -56,5 +70,30 @@ export default class FileViewer extends React.Component {
         })}
       </tr>
     );
+  };
+
+  humanSize(bytes) {
+    if (bytes >= 1073741824) {
+      bytes = (bytes / 1073741824).toFixed(2) + " GB";
+    } else if (bytes >= 1048576) {
+      bytes = (bytes / 1048576).toFixed(2) + " MB";
+    } else if (bytes >= 1024) {
+      bytes = (bytes / 1024).toFixed(2) + " KB";
+    } else if (bytes > 1) {
+      bytes = bytes + " bytes";
+    } else if (bytes === 1) {
+      bytes = bytes + " byte";
+    } else {
+      bytes = "0 bytes";
+    }
+    return bytes;
+  }
+
+  gotoPage = page => {
+    this.setState({ page: page });
+  };
+
+  changePageSize = pageSize => {
+    this.setState({ pageSize: pageSize, page: 0 });
   };
 }

@@ -4,14 +4,17 @@ import React from "react";
 export default class FileChooser extends React.Component {
   metadata = {};
   rows = [];
+  state = { isLoading: false };
 
   render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
+    const { isLoading } = this.state;
+    return isLoading ? (
+      <div>loading...</div>
+    ) : (
+      <div>
         <label>Choose a file</label>
         <input type="file" onChange={this.handleFileChange}></input>
-        <button type="submit">Open</button>
-      </form>
+      </div>
     );
   }
 
@@ -20,16 +23,12 @@ export default class FileChooser extends React.Component {
     if (files && files.length > 0) {
       const file = files[0];
       if (file.name.endsWith(".avro") || file.name.endsWith(".AVRO")) {
+        this.setState({ isLoading: true });
         this.decodeAvro(file);
         return;
       }
     }
     throw new Error("Please provide a valid AVRO file");
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(e.target);
   };
 
   decodeAvro = file => {
@@ -45,9 +44,9 @@ export default class FileChooser extends React.Component {
         rows.push(val);
       })
       .on("end", () => {
-        console.log(rows.length, file);
-        console.log(metadata);
-
+        //console.log(rows.length, file);
+        //console.log(metadata);
+        this.setState({ isLoading: false });
         onData && onData(file, metadata, rows);
       });
   };

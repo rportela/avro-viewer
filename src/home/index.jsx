@@ -8,7 +8,12 @@ export default class Home extends React.Component {
     const metadata = this.metadata;
     const rows = this.rows;
     return file && metadata ? (
-      <FileViewer file={file} metadata={metadata} rows={rows} />
+      <FileViewer
+        file={file}
+        metadata={metadata}
+        rows={rows}
+        onClose={this.handleClose}
+      />
     ) : (
       <FileChooser onData={this.handleData} />
     );
@@ -18,6 +23,13 @@ export default class Home extends React.Component {
     this.file = file;
     this.metadata = metadata;
     this.rows = rows;
+    this.forceUpdate();
+  };
+
+  handleClose = () => {
+    this.file = null;
+    this.metadata = null;
+    this.rows = null;
     this.forceUpdate();
   };
 }
