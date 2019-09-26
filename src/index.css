@@ -44,6 +44,7 @@ table {
   width: 100%;
   height: 100%;
 }
+
 th {
   position: sticky;
   top: 0;
@@ -62,4 +63,7 @@ td.int,
 th.double,
 th.int {
   text-align: right;
+}
+label {
+  padding: 0.7em;
 }

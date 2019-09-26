@@ -15,7 +15,7 @@ export default class FileViewer extends React.Component {
           </div>
           <h1>
             {file.name}, {this.humanSize(file.size)},{" last modified on "}
-            {file.lastModifiedDate.toString()}
+            {this.lastModifiedOn(file)}
           </h1>
         </div>
         <div id="table-scroll">
@@ -87,6 +87,10 @@ export default class FileViewer extends React.Component {
       bytes = "0 bytes";
     }
     return bytes;
+  }
+
+  lastModifiedOn(file) {
+    return file.lastModifiedDate ? file.lastModifiedDate.toString() : "n/a";
   }
 
   gotoPage = page => {

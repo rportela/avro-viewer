@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/avro-viewer/static/css/main.2a63bb3d.chunk.css",
+    "main.js": "/avro-viewer/static/js/main.6659d722.chunk.js",
+    "main.js.map": "/avro-viewer/static/js/main.6659d722.chunk.js.map",
+    "runtime~main.js": "/avro-viewer/static/js/runtime~main.b1229c59.js",
+    "runtime~main.js.map": "/avro-viewer/static/js/runtime~main.b1229c59.js.map",
+    "static/js/2.61b6cfc2.chunk.js": "/avro-viewer/static/js/2.61b6cfc2.chunk.js",
+    "static/js/2.61b6cfc2.chunk.js.map": "/avro-viewer/static/js/2.61b6cfc2.chunk.js.map",
+    "index.html": "/avro-viewer/index.html",
+    "precache-manifest.e8726c7aa34a843d03ca6668b8d86dc6.js": "/avro-viewer/precache-manifest.e8726c7aa34a843d03ca6668b8d86dc6.js",
+    "service-worker.js": "/avro-viewer/service-worker.js",
+    "static/css/main.2a63bb3d.chunk.css.map": "/avro-viewer/static/css/main.2a63bb3d.chunk.css.map"
+  }
+}
